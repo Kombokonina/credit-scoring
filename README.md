@@ -1,8 +1,8 @@
-# Модель кредитного скоринга / Credit Scoring Model
+# Credit Scoring Model
 
-Модель для выявления заемщиков с высоким риском дефолта на основе данных о кредитной истории, доходах и поведении.
+A model for identifying borrowers with high default risk based on credit history, income, and payment behavior.
 
-## Результаты
+## Results
 
 | Model | ROC AUC |
 |-------|---------|
@@ -15,25 +15,25 @@
 | Pipeline + GradientBoosting | 0.861 |
 | **Pipeline + CatBoost (Optuna)** | **0.864** |
 
-## Основные выводы
+## Key Findings
 
-- Дисбаланс классов (6.7% дефолтов) делает accuracy бесполезной метрикой — базовая модель показывала 93% accuracy при recall дефолтов всего 15%
-- Применение `class_weight='balanced'` увеличило recall с 15% до 59%
-- sklearn Pipeline с SimpleImputer сохранил ~30K строк, которые dropna() удалял, что улучшило ROC AUC на 1%
-- K-Means кластеризация без целевой переменной выявила группу с 48% уровнем дефолтов
-- Топ-3 признака по важности: RevolvingUtilizationOfUnsecuredLines (25%), DebtRatio (12%), age (12%)
+- Class imbalance (6.7% defaults) makes accuracy misleading — baseline model showed 93% accuracy but only 15% recall on defaulters
+- Applying `class_weight='balanced'` increased recall from 15% to 59%
+- sklearn Pipeline with SimpleImputer preserved ~30K rows that dropna() removed, improving ROC AUC by 1%
+- K-Means clustering without the target variable identified a group with 48% default rate
+- Top 3 features by importance: RevolvingUtilizationOfUnsecuredLines (25%), DebtRatio (12%), age (12%)
 
-## Стек
+## Stack
 
 Python, Pandas, Scikit-learn, CatBoost, Optuna, Matplotlib
 
-## Данные
+## Data
 
-[Give Me Some Credit](https://www.kaggle.com/c/GiveMeSomeCredit) — 150K записей заёмщиков с 10 признаками.
+[Give Me Some Credit](https://www.kaggle.com/c/GiveMeSomeCredit) — 150K borrower records with 10 features.
 
-## Запуск
+## Setup
 
 ```bash
 pip install -r requirements.txt
-jupyter notebook notebooks/credit_scoring.ipynb
+jupyter notebook notebooks/main.ipynb
 ```
